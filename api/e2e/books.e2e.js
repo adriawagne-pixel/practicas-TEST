@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { MongoClient } = require ('mongodb');
+const { MongoClient } = require('mongodb');
 
 const createApp = require('../src/app');
 const { config } = require('../src/config');

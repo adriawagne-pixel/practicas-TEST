@@ -1,8 +1,8 @@
-const request = require ("supertest");
+const request = require('supertest');
 
-const createApp = require("../src/app");
+const createApp = require('../src/app');
 
-describe("test for hello endpoint", () => {
+describe('test for hello endpoint', () => {
   let app = null;
   let server = null;
   beforeAll(() => {
@@ -15,7 +15,7 @@ describe("test for hello endpoint", () => {
   });
 
   describe('test for [GET] /', () => {
-    test("should return 'Hello World'", () => request(app)
+    test('should return \'Hello World\'', () => request(app)
       .get('/')
       .expect(200)
       .then((response) => {
