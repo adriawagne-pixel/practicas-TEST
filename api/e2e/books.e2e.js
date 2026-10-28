@@ -11,11 +11,12 @@ describe('test for books', () => {
   let app = null;
   let server = null;
   let database = null;
+  let client = null; // 1. Declarar client aquí para que tenga alcance global en el describe
 
   beforeAll(async () => {
     app = createApp();
     server = app.listen(3001);
-    const client = new MongoClient(MONGO_URI,{
+    client = new MongoClient(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -24,8 +25,15 @@ describe('test for books', () => {
   });
 
   afterAll(async () => {
-    await server.close();
-    await database.dropDatabase();
+    if (database) {
+      await database.dropDatabase();
+    }
+    if (client) {
+      await client.close(); // 2. Cerrar la conexión del cliente MongoDB
+    }
+    if (server) {
+      await server.close(); // 3. Cerrar el servidor HTTP
+    }
   });
 
   describe('test for [GET] /api/v1/books', () => {
@@ -43,13 +51,11 @@ describe('test for books', () => {
           author: 'Author 2',
         },
       ]);
-      console.log(seedData);
       // Act
       return request(app)
         .get('/api/v1/books')
         .expect(200)
         .then(({ body }) => {
-          console.log(body);
           expect(body.length).toEqual(seedData.insertedCount);
         });
     });
