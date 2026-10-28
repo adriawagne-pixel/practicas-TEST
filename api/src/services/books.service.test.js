@@ -8,15 +8,15 @@ jest.mock("../lib/mongo.lib", () => jest.fn().mockImplementation(() => ({
   create: () => {},
 })));
 
-describe("Tests for BooksService", () => {
+describe('Tests for BooksService', () => {
   let service;
   beforeEach(() => {
     service = new BooksService();
     jest.clearAllMocks();
   });
 
-  describe("Test for getBooks", () => {
-    test("should return a list book", async () => {
+  describe('Test for getBooks', () => {
+    test('should return a list book', async () => {
       // Arrange
       const fakeBooks = generateManyBooks(20);
       mockGetAll.mockResolvedValue(fakeBooks);
@@ -30,7 +30,7 @@ describe("Tests for BooksService", () => {
       expect(mockGetAll).toHaveBeenCalledWith("books", {});
     });
 
-    test("should return a list book", async () => {
+    test('should return a list book', async () => {
       // Arrange
       const fakeBooks = generateManyBooks(4);
       mockGetAll.mockResolvedValue(fakeBooks);
